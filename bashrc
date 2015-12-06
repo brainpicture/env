@@ -15,7 +15,6 @@ export TERM=xterm-256color
 PS1='${debian_chroot:+($debian_chroot)}\[\033[00;36m\],--[\[\033[01;37m\]$LINENO\[\033[00;36m\]]-----(\[\033[01;33m\]\u\[\033[00;36m\])------(\[\033[01;36m\]\t\[\033[00;36m\])\n\[\033[36m\]\`--:\[\033[01;31m\]\w> \[\033[00m\]'
 
 export LS_OPTIONS='--color=auto'
-eval "`dircolors`"
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias l='ls $LS_OPTIONS -lA'
