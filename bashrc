@@ -10,14 +10,21 @@ else
   export LANG=ru_RU.UTF-8
   export LC_ALL=ru_RU.UTF-8
 fi
+export TERM=xterm-256color
 
 PS1='${debian_chroot:+($debian_chroot)}\[\033[00;36m\],--[\[\033[01;37m\]$LINENO\[\033[00;36m\]]-----(\[\033[01;33m\]\u\[\033[00;36m\])------(\[\033[01;36m\]\t\[\033[00;36m\])\n\[\033[36m\]\`--:\[\033[01;31m\]\w> \[\033[00m\]'
 
-# You may uncomshent the following lines if you want `ls' to be colorized:
-#export LS_OPTIONS='--color=auto'
-#alias ls='ls $LS_OPTIONS'
-#alias ll='ls $LS_OPTIONS -l'
-#alias l='ls $LS_OPTIONS -lA'
+export LS_OPTIONS='--color=auto'
+eval "`dircolors`"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
+alias branch='git branch'
+alias checkout='git checkout'
+alias master='git checkout master'
+alias feature='git checkout feature'
+alias merge='git merge'
+alias stash='git stash'
 
 export GIT_MERGE_AUTOEDIT='no'
 
