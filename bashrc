@@ -24,6 +24,7 @@ alias master='git checkout master'
 alias feature='git checkout feature'
 alias merge='git merge'
 alias stash='git stash'
+alias track='git commit --amend'
 
 export GIT_MERGE_AUTOEDIT='no'
 

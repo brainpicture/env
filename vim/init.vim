@@ -92,14 +92,13 @@ au Bufread,BufNewFile *.as set filetype=actionscript
 autocmd BufWinLeave * :let g:LastBuff=expand('<abuf>') " // restore last closed buf
 autocmd BufWritePost *.snippets :call ReloadAllSnippets()
 
-noremap ,T :execute 'tabnew +'.g:LastBuff.'buf'<CR>
+nnoremap ,T :execute 'tabnew +'.g:LastBuff.'buf'<CR>
 
 noremap  <f2> :w<return>
 inoremap <f2> <Esc>:w<return>
 inoremap <S-f2> <Esc>:w<return>
-noremap  ,w :w<return>
-
-noremap  ,b :w<CR>:!./build.sh<CR>
+nnoremap  ,w :w<return>
+nnoremap  ,b :w<CR>:!./build.sh<CR>
 
 nnoremap <C-Up> mx:m-2<CR>`x==
 nnoremap <C-Down> mx:m+<CR>`x==
@@ -168,44 +167,48 @@ map <S-Insert>    "+gP
 cmap <C-V>    <C-R>+
 cmap <S-Insert>   <C-R>+
 
-" Pasting blockwise and linewise selections is not possible in Insert and
-" Visual mode without the +virtualedit feature.  They are pasted as if they
-" were characterwise instead.
-" Uses the paste.vim autoload script.
-
-exe 'inoremap <script> <C-V>' paste#paste_cmd['i']
-exe 'vnoremap <script> <C-V>' paste#paste_cmd['v']
-
-imap <S-Insert>   <C-V>
-vmap <S-Insert>   <C-V>
+set pastetoggle=<F5>
+" Auto :paste node when C-V used
+"function! XTermPasteBegin()
+"  set pastetoggle=<Esc>[201~
+"  set paste
+"  return \""
+"endfunction
+"if exists('$TMUX')
+"  &t_SI .= \"\<Esc>Ptmux;\<Esc>\<Esc>[?2004h\<Esc>\\"
+"  let &t_EI .= \"\<Esc>Ptmux;\<Esc>\<Esc>[?2004l\<Esc>\\"
+"else
+"  let &t_SI .= \"\<Esc>[?2004h"
+"  let &t_EI .= \"\<Esc>[?2004l"
+"  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+"endif
 
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q>   <C-V>
+
+"noremap <Down> <c-e>j
+"noremap <Up> <c->k
+noremap <S-Down> j
+noremap <S-Up> k
 
 " CTRL-Tab is Next window
 noremap <C-Tab> gt
 noremap <C-S-Tab> gT
 vnoremap <C-Tab> <Esc>gt
 vnoremap <C-S-Tab> <Esc>gT
-inoremap <C-Tab> <C-o>:tabn<CR>
-inoremap <C-S-Tab> <C-o>:tabp<CR>
-noremap ,. gt
-noremap ,m gT
-noremap ,, gT
-noremap <D-M-Left> gT
-noremap <D-M-Right> gt
-vnoremap <D-M-Left> <Esc>gT
-vnoremap <D-M-Right> <Esc>gt
-inoremap <D-M-Left> <C-o>:tabp<CR>
-inoremap <D-M-Right> <C-o>:tabn<CR>
-let g:SuperTabMappingTabLiteral = '<c-d-tab>'
+inoremap <C-Tab> <Esc>gt
+inoremap <C-S-Tab> <Esc>gT
+nnoremap ,. gt
+nnoremap ,, gT
 
+nnoremap ,l gt
+nnoremap ,h gT
 for _i in range(1, 9)
-  exe "noremap <D-"._i."> "._i."gt"
+  exe "nnoremap <D-"._i."> "._i."gt"
   exe "inoremap <D-"._i."> <Esc>"._i."gt"
   exe "vnoremap <D-"._i."> <Esc>"._i."gt"
   exe "cnoremap <D-"._i."> <Esc>"._i."gt"
-  exe "noremap ,"._i." :tabn "._i."<CR>"
+  exe "nnoremap ,"._i." :tabn "._i."<CR>"
 endfor
 
 nnoremap j gj
@@ -218,7 +221,7 @@ nnoremap <Down> gj
 "inoremap <silent> <Down> <C-o>gj
 "inoremap <Up> <Esc>gka
 "inoremap <Down> <Esc>gja
-nmap <silent> ,/ :nohlsearch<CR>
+nnoremap <silent> ,/ :nohlsearch<CR>
 set scrolloff=1
 set shortmess=atIstTA
 set viminfo='100,<50,:100,/50,s10,h,f50,!
@@ -228,16 +231,15 @@ set guioptions=gi
 if has("mac")
   let g:fontsize=12
   let g:fontpref="Monaco:h"
-  "let g:fontpref="Source Code Pro:h"
   "set guioptions+=e
 else
   let g:fontsize=10
   let g:fontpref="Monospace "
 endif
 let &guifont=g:fontpref.g:fontsize
-nmap ,= :let g:fontsize+=1<CR>:let &guifont=g:fontpref.g:fontsize<CR>
-nmap ,- :let g:fontsize-=1<CR>:let &guifont=g:fontpref.g:fontsize<CR>
-nmap ,+ :let g:fontsize=11<CR>:let &guifont=g:fontpref.g:fontsize<CR>
+nnoremap ,= :let g:fontsize+=1<CR>:let &guifont=g:fontpref.g:fontsize<CR>
+nnoremap ,- :let g:fontsize-=1<CR>:let &guifont=g:fontpref.g:fontsize<CR>
+nnoremap ,+ :let g:fontsize=11<CR>:let &guifont=g:fontpref.g:fontsize<CR>
 
 nnoremap <silent> <PageUp> <C-U>
 vnoremap <silent> <PageUp> <C-U>
@@ -253,72 +255,70 @@ let g:AutoPairs = {'(':')', '[':']', "'":"'",'"':'"', '`':'`'}
 
 map <F8> <Plug>ShowFunc
 
-nmap ,s :source $MYVIMRC<CR>
-nmap ,sp :tabnew ~/.vim/snippets/php.snippets<CR>
-nmap ,sj :tabnew ~/.vim/snippets/javascript.snippets<CR>
-nmap ,sc :tabnew ~/.vim/snippets/css.snippets<CR>
-nmap ,sh :tabnew ~/.vim/snippets/html.snippets<CR>
-nmap ,s_ :tabnew ~/.vim/snippets/_.snippets<CR>
-nmap ,v :tabnew $MYVIMRC<CR>
+nnoremap ,s :source $MYVIMRC<CR>
+nnoremap ,sp :tabnew ~/.vim/snippets/php.snippets<CR>
+nnoremap ,sj :tabnew ~/.vim/snippets/javascript.snippets<CR>
+nnoremap ,sc :tabnew ~/.vim/snippets/css.snippets<CR>
+nnoremap ,sh :tabnew ~/.vim/snippets/html.snippets<CR>
+nnoremap ,s_ :tabnew ~/.vim/snippets/_.snippets<CR>
+nnoremap ,v :tabnew $MYVIMRC<CR>
 
-nmap ,n :tabnew ~/.vim/tasks.md<CR>
+nnoremap ,n :tabnew ~/.vim/tasks.md<CR>
+nnoremap ,pd a<C-R>=strftime("%b %d, %Y")<CR>
 
 nmap gp :call JumpToParams()<CR>i
 nmap gl :call JumpToFunction()<CR>
 nmap gk :call JumpToGlobal()<CR>
 nmap gL :call JumpToFunctionDown()<CR>
-noremap ,m :call ToggleMouse()<CR>
-map ,g :GundoToggle<CR>
-nmap ,q :q<CR>
-nmap ,t :tabnew<CR>
+nnoremap ,m :call ToggleMouse()<CR>
+nnoremap ,g :GundoToggle<CR>
+nnoremap ,q :q<CR>
+nnoremap ,t :tabnew<CR>
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-nmap ,iw viw"xyodebugServerLog('<Esc>"xpli', <Esc>"xpli);<Esc>
-nmap ,i( vi("xyodebugServerLog(<Esc>"xpli);<Esc>
-nmap ,i) vi)"xyodebugServerLog(<Esc>"xpli);<Esc>
-nmap ,i' vi'"xyodebugServerLog('<Esc>"xpli', <Esc>"xpli);<Esc>
-nmap ,i" vi""xyodebugServerLog('<Esc>"xpli', <Esc>"xpli);<Esc>
-nmap ,aw vaw"xyodebugServerLog('<Esc>"xpli', <Esc>"xpli);<Esc>
-nmap ,a( va("xyodebugServerLog(<Esc>"xpli);<Esc>
-nmap ,a) va)"xyodebugServerLog(<Esc>"xpli);<Esc>
-nmap ,a' va'"xyodebugServerLog(<Esc>"xpli);<Esc>
-nmap ,a" va""xyodebugServerLog(<Esc>"xpli);<Esc>
 nmap ;o A;<Esc>o
 nmap ;O A;<Esc>O
 nmap ;; A;<Esc>
-nmap ,df diwds(
-nmap ,o4 :tabnew ./www/49.php<CR>
-nmap ,tcj :tabnew ./static/js/al/common.js<CR>
-nmap ,tco :tabnew ./www/config.php<CR>
-nnoremap ,y viwy
+nnoremap ,df diwds(
+nnoremap ,o4 :tabnew ./www/49.php<CR>
+nnoremap ,tcj :tabnew ./static/js/al/common.js<CR>
+nnoremap ,tco :tabnew ./www/config.php<CR>
+nnoremap ,\ ^i//<Esc>
+vnoremap ,d "xyodebugServerLog(<Esc>"xpli);<Esc>
 "nnoremap ,pr i'+(window.devicePixelRatio >= 2 ? '_2x' : '')+'<Esc>
-"nmap ,pd a<C-R>=strftime("%b %d, %Y")<CR>
-nnoremap ,p viwp
 
-nmap ;iw yiw`xP<Esc>
+" BookmarkPut
+vnoremap <silent> m y:call BookmarkPut()<CR>
+function! BookmarkPut()
+  echo "bookmark: "
+  let c = getchar()
+  if !type(c)
+    let c = nr2char(c)
+  endif
+  if (match(c, '[a-zA-Z0-9]\C') != -1)
+    exec "normal! `".c."P"
+  elseif
+    echo "should be a leter"
+  endif
+endfunction
 
-nmap ,k mxO<Esc>VC#ifndef KittenPHP<Esc>jo<Esc>VC#endif<Esc>
 
-"nnoremap <C-\> <C-w><C-]><C-w>T
-nnoremap ,] <C-]>
-noremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-noremap ,\ :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <D-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-noremap <D-]> :tabnext<CR>
+nnoremap ,k mxO<Esc>VC#ifndef KittenPHP<Esc>jo<Esc>VC#endif<Esc>
+
+vnoremap v iw
+
+nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <D-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <D-]> :tabnext<CR>
 inoremap <D-]> <Esc>:tabnext<CR>
 cnoremap <D-]> <Esc>:tabnext<CR>
-noremap <D-[> :tabprev<CR>
+nnoremap <D-[> :tabprev<CR>
 inoremap <D-[> <Esc>:tabprev<CR>
 cnoremap <D-[> <Esc>:tabprev<CR>
-
-let g:tcommentMaps = 0
-noremap <D-/> :TComment<CR>
-inoremap <D-/> <c-o>:TComment<CR>
-vnoremap <D-/> :TCommentMaybeInline<CR>
 
 command! Q q
 command! FormatXML 1,$!xmllint --format --recover - 2>/dev/null "format xml file
@@ -340,7 +340,6 @@ function! JumpToGlobal()
   call JumpToFunction()
   +1
   let str = getline(".")
-  "echo str
   if match(str, "global") != -1
     call feedkeys("$i")
   else
@@ -400,15 +399,12 @@ set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 
-set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
-
-
 ab apdding padding
 ab amrgin margin
 ab esle else
 
-nmap ,<F4> :cd ~/<CR>:cd ./Mount/Data<CR><F4>
-nmap б<F4> :cd ~/<CR>:cd ./Mount/Data<CR><F4>
+nnoremap ,<F4> :cd ~/<CR>:cd ./Mount/Data<CR><F4>
+nnoremap б<F4> :cd ~/<CR>:cd ./Mount/Data<CR><F4>
 let g:session = 0
 
 function! SwitchToSession(session)
@@ -425,11 +421,6 @@ function! SwitchToSession(session)
     exec "mks! ~/.vim/tmp/".a:session.".session"
   endif
 endfunction
-
-" Sessions
-" noremap ,1 :call SwitchToSession(1)<CR>
-" noremap ,2 :call SwitchToSession(2)<CR>
-
 
 " Spaces
 noremap <space> :call Spaces()<CR>
