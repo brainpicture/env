@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/oillarionov/env/vim/colors'
-let g:netrw_dirhist_2='/home/oillarionov/env/vim'
-let g:netrw_dirhist_3='/home/oillarionov/env/vim/syntax'
