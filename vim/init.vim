@@ -3,6 +3,11 @@ if has('nvim')
   tnoremap <Esc> <C-\><C-n>
 endif
 
+"hide tmux statusbar when vim starts
+if exists('$TMUX')
+  autocmd VimEnter,VimLeave * silent !tmux set status
+endif
+
 "runtime macros/matchit.vim
 set nocompatible
 set autoindent
