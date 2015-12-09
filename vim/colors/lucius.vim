@@ -69,6 +69,8 @@ hi Function         ctermfg=119                                     cterm=none
 hi phpFunctions     guifg=#72f99b                                   gui=none
 hi phpFunctions     ctermfg=119                                     cterm=none
 
+hi phpParent     ctermfg=230                              cterm=none
+
 
 " Statement Group
 " ---------------

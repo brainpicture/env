@@ -1,4 +1,5 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
+export PS1='\h:\w\$ '
 umask 022
 
 if [ "$TERM" = dtterm -o "$LANG" = ru_RU.KOI8-R -o "$LC_ALL" = ru_RU.KOI8-R -o -n "$KOI"  ] ; then
@@ -10,7 +11,11 @@ else
   export LANG=ru_RU.UTF-8
   export LC_ALL=ru_RU.UTF-8
 fi
-export TERM=xterm-256color
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+  export TERM='xterm-256color'
+else
+  export TERM='xterm-color'
+fi
 
 PS1='${debian_chroot:+($debian_chroot)}\[\033[00;36m\],--[\[\033[01;37m\]$LINENO\[\033[00;36m\]]-----(\[\033[01;33m\]\u\[\033[00;36m\])------(\[\033[01;36m\]\t\[\033[00;36m\])\n\[\033[36m\]\`--:\[\033[01;31m\]\w> \[\033[00m\]'
 
