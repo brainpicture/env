@@ -3,3 +3,4 @@ tasks.md
 /vim/tmp/*
 .DS_Store
 /vim/vim
+/vim/.netrwhist
