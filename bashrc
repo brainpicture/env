@@ -87,6 +87,6 @@ function fast {
   sudo wondershaper clear eth0
 }
 
-if [ -f .bash_local  ]; then
-  . .bash_local
+if [ -f ~/.bash_local  ]; then
+  . ~/.bash_local
 fi

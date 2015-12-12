@@ -434,10 +434,10 @@ if !exists("g:spaces")
 endif
 let g:spacesPrev = [-1, ""]
 function! Spaces()
-  let outstr = ""
-  for [key, value] in items(g:spaces)
-    let outstr = outstr."[".value[2]."] ".value[1]." "
-  endfor
+  let outstr = "Enter mark to go: "
+  "for [key, value] in items(g:spaces)
+  "  let outstr = outstr."[".value[2]."] ".value[1]." "
+  "endfor
   echo outstr
   let c = getchar()
   if !type(c)
@@ -448,7 +448,11 @@ function! Spaces()
     echo ""
     return
   elseif (c == "\<Space>")
-    let num = g:spacesPrev
+    if (g:spacesPrev[0] == -1)
+      let num = [bufnr("%")]
+    else
+      let num = g:spacesPrev
+    endif
   elseif (match(c, '[A-Z]\C') != -1)
     let c = substitute(c, ".*", "\\L\\0", "")
     let num = [-1]
@@ -457,16 +461,16 @@ function! Spaces()
   else
     return
   endif
-  if (num[0] != -1)
-    let g:spacesPrev = [bufnr("%")]
-    redraw
-    exe ":buffer ".num[0]
-  else
+  if (num[0] == -1)
     let spaceName = matchstr(bufname("%"), "[^/]*$")
     let spaceLetter = substitute(c, ".*", "\\U\\0", "")
     let g:spaces[c] = [bufnr("%"), spaceName, spaceLetter]
     redraw
     echo "added [".spaceLetter."] ".spaceName
+  else
+    let g:spacesPrev = [bufnr("%")]
+    redraw
+    exe ":buffer ".num[0]
   endif
 endfunction
 
