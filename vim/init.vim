@@ -8,7 +8,23 @@ if exists('$TMUX')
   autocmd VimEnter,VimLeave * silent !tmux set status
 endif
 
-"runtime macros/matchit.vim
+" xdebug
+if exists('$XDEBUG_PORT')
+  let g:dbgPavimPort = $XDEBUG_PORT
+endif
+let g:dbgPavimSessionAutostart = 1
+let g:dbgPavimAutostart = 1
+let g:dbgPavimBreakAtEntry = 0
+let g:dbgPavimKeyToggleBp = '<F5>'
+let g:dbgPavimKeyRun = ''
+let g:dbgPavimKeyQuit = ''
+let g:dbgPavimKeyLeave = '<Esc><Esc>'
+let g:dbgPavimKeyToggleBae = ''
+"let g:dbgPavimOnce = 1
+
+
+set laststatus=1
+
 set nocompatible
 set autoindent
 set smartindent
@@ -172,7 +188,7 @@ map <S-Insert>    "+gP
 cmap <C-V>    <C-R>+
 cmap <S-Insert>   <C-R>+
 
-set pastetoggle=<F5>
+"set pastetoggle=<F5>
 " Auto :paste node when C-V used
 "function! XTermPasteBegin()
 "  set pastetoggle=<Esc>[201~
