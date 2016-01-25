@@ -1,11 +1,47 @@
 "nvim specific
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
-endif
+  tnoremap <C-j> <C-\><C-n><C-w>j
+  tnoremap <C-h> <C-\><C-n><C-w>h
+  tnoremap <C-l> <C-\><C-n><C-w>l
+  tnoremap <C-k> <C-\><C-n><C-w>k
+  nnoremap <F1> :call TerminalBuf()<CR>
+  inoremap <F1> <Esc>:call TerminalBuf()<CR>
+  vnoremap <F1> <Esc>:call TerminalBuf()<CR>
+  cnoremap <F1> <Esc>:call TerminalBuf()<CR>
 
-"hide tmux statusbar when vim starts
-if exists('$TMUX')
-  autocmd VimEnter,VimLeave * silent !tmux set status
+  let g:termBuf = -1
+  let g:prevBuf = -1
+  function! TerminalBuf()
+    if g:termBuf == -1 || bufexists(g:termBuf) == 0
+      let g:prevBuf = bufnr("%")
+      exec ":e term://bash"
+      exec ":file terminal"
+      let g:termBuf = bufnr("%")
+      tnoremap <buffer> <silent> <F1> <C-\><C-n>:call TerminalPrev()<CR>
+      nnoremap <buffer> <silent> <F1> :call TerminalPrev()<CR>
+      autocmd BufEnter <buffer> normal i
+    else
+      let g:prevBuf = bufnr("%")
+      exe ":buffer ".g:termBuf
+    endif
+    exec "normal! i"
+  endfunction
+
+  function! TerminalPrev()
+    exe ":buffer ".g:prevBuf
+  endfunction
+elseif exists('$TMUX')
+    autocmd VimEnter,VimLeave * silent !tmux set status && tmux set -s escape-time 0
+
+    nnoremap <F1> :call TerminalBuf()<CR>
+
+    silent !tmux bind-key -n F1 previous-window
+
+    function! TerminalBuf()
+      silent !tmux next-window
+    endfunc
+
 endif
 
 " xdebug
@@ -20,10 +56,10 @@ let g:dbgPavimKeyRun = ''
 let g:dbgPavimKeyQuit = ''
 let g:dbgPavimKeyLeave = '<Esc><Esc>'
 let g:dbgPavimKeyToggleBae = ''
-"let g:dbgPavimOnce = 1
+let g:dbgPavimOnce = 1
 
 
-set laststatus=1
+set laststatus=0
 
 set nocompatible
 set autoindent
@@ -136,9 +172,6 @@ vnoremap <f8> <c-o>:BufExplorer<return>
 
 map <f3> <f2>
 imap <f3> <f2>
-
-map <f1> <f2>
-imap <f1> <f2>
 
 nnoremap <Home> ^
 inoremap <Home> <Esc>^i
