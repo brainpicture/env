@@ -229,7 +229,7 @@ hi VertSplit        ctermfg=244             ctermbg=238             cterm=none
 hi SignColumn       guifg=#9fafaf           guibg=#181818           gui=none
 hi SignColumn       ctermfg=145             ctermbg=233             cterm=none
 " line numbers
-hi LineNr           guifg=#333333           guibg=#1b1b1b
+hi LineNr           guifg=#606060           guibg=#1b1b1b
 hi LineNr           ctermfg=238             ctermbg=234
 " match parenthesis, brackets
 hi MatchParen       guifg=#00ff00           guibg=#444444              gui=none
