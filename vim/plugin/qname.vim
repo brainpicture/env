@@ -298,7 +298,7 @@ function! s:funclist()
   endtry
   let bname  = buffer_name('%')
   for d in getqflist()
-    let pattern = 'function[ !]\+\zs\([a-zA-z_\-:\.]\+\)\ze'
+    let pattern = 'function[ !]\+\zs\([a-zA-z_\-:\.0-9]\+\)\ze'
     let info = matchlist(d.text, pattern)
     if !empty(info)
       let col = match(d.text, pattern)
