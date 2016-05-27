@@ -200,8 +200,8 @@ snippet for
 		${4: // code...}
 	}
 snippet foreach
-	foreach ($${1:variable} as $${2:key}) {
-		${3:// code...}
+	foreach (${1:variable} as ${2:key}) {
+		${3}
 	}
 # $... = array (...)
 
@@ -212,6 +212,8 @@ snippet d
 snippet v
 	var_dump(${1});
 snippet a
+	array(${1})
+snippet rel
 	relogin(${1}, 66748);
 snippet ro
 	requireOnce('${1}');
@@ -255,8 +257,8 @@ snippet getparams
 		'${1}' => array('${2}'),
 	));
 snippet fe
-	foreach ($${1:variable} as $${2:k} => $${3:v}) {
-		${3:// code...}
+	foreach (${1:$variable} as ${2:$k} => ${3:$v}) {
+		${3}
 	}
 snippet rf
 	return false;
@@ -272,3 +274,5 @@ snippet mcget
 	mcGet('mc', "${1:key}");
 snippet ina
 	in_array(${1})
+snippet list
+	list(${1}) = ${2};

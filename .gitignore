@@ -4,3 +4,4 @@ tasks.md
 .DS_Store
 /vim/vim
 /vim/.netrwhist
+/vim/bundle/DBGPavim

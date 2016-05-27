@@ -1,12 +1,54 @@
 "nvim specific
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-j> <C-\><C-n><C-w>j
+  tnoremap <C-h> <C-\><C-n><C-w>h
+  tnoremap <C-l> <C-\><C-n><C-w>l
+  tnoremap <C-k> <C-\><C-n><C-w>k
+  nnoremap <F1> :call TerminalBuf()<CR>
+  inoremap <F1> <Esc>:call TerminalBuf()<CR>
+  vnoremap <F1> <Esc>:call TerminalBuf()<CR>
+  cnoremap <F1> <Esc>:call TerminalBuf()<CR>
+
+  let g:termBuf = -1
+  let g:prevBuf = -1
+  function! TerminalBuf()
+    if g:termBuf == -1 || bufexists(g:termBuf) == 0
+      let g:prevBuf = bufnr("%")
+      exec ":e term://bash"
+      exec ":file terminal"
+      let g:termBuf = bufnr("%")
+      tnoremap <buffer> <silent> <F1> <C-\><C-n>:call TerminalPrev()<CR>
+      nnoremap <buffer> <silent> <F1> :call TerminalPrev()<CR>
+      autocmd BufEnter <buffer> normal i
+    else
+      let g:prevBuf = bufnr("%")
+      exe ":buffer ".g:termBuf
+    endif
+    exec "normal! i"
+  endfunction
+
+  function! TerminalPrev()
+    exe ":buffer ".g:prevBuf
+  endfunction
+elseif exists('$TMUX')
+    autocmd VimEnter,VimLeave * silent !tmux set status && tmux set -s escape-time 0
+
+    nnoremap <F1> :call TerminalBuf()<CR>
+
+    silent !tmux bind-key -n F1 previous-window
+    silent !tmux set -g history-limit 20000
+    silent !tmux setw -g xterm-keys on
+
+    function! TerminalBuf()
+      silent !tmux next-window
+    endfunc
+
 endif
 
-"hide tmux statusbar when vim starts
-if exists('$TMUX')
-  autocmd VimEnter,VimLeave * silent !tmux set status
-endif
+execute pathogen#infect()
+filetype plugin on
+map <Leader> <Plug>(easymotion-prefix)
 
 " xdebug
 if exists('$XDEBUG_PORT')
@@ -20,10 +62,10 @@ let g:dbgPavimKeyRun = ''
 let g:dbgPavimKeyQuit = ''
 let g:dbgPavimKeyLeave = '<Esc><Esc>'
 let g:dbgPavimKeyToggleBae = ''
-"let g:dbgPavimOnce = 1
+let g:dbgPavimOnce = 1
 
 
-set laststatus=1
+set laststatus=0
 
 set nocompatible
 set autoindent
@@ -45,8 +87,6 @@ syntax on
 set mouse=a
 
 set virtualedit=all
-
-set number
 
 set ignorecase
 
@@ -86,6 +126,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType make setlocal noexpandtab
 autocmd FileChangedShell * echo "Warning: File changed on disk"
+autocmd FileType php setlocal commentstring=//\ %s
 
 let php_sql_query=1
 "let php_htmlInStrings=1
@@ -113,6 +154,13 @@ au Bufread,BufNewFile *.as set filetype=actionscript
 autocmd BufWinLeave * :let g:LastBuff=expand('<abuf>') " // restore last closed buf
 autocmd BufWritePost *.snippets :call ReloadAllSnippets()
 
+set number
+set relativenumber
+autocmd FocusLost * :set norelativenumber number
+autocmd FocusGained * :set relativenumber
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
+
 nnoremap ,T :execute 'tabnew +'.g:LastBuff.'buf'<CR>
 
 noremap  <f2> :w<return>
@@ -136,9 +184,6 @@ vnoremap <f8> <c-o>:BufExplorer<return>
 
 map <f3> <f2>
 imap <f3> <f2>
-
-map <f1> <f2>
-imap <f1> <f2>
 
 nnoremap <Home> ^
 inoremap <Home> <Esc>^i
@@ -232,10 +277,10 @@ for _i in range(1, 9)
   exe "nnoremap ,"._i." :tabn "._i."<CR>"
 endfor
 
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+vnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+vnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <Up> gk
 nnoremap <Down> gj
 "inoremap <silent> <Up> <C-o>gk
@@ -250,7 +295,7 @@ set viminfo='100,<50,:100,/50,s10,h,f50,!
 set guioptions=gi
 
 if has("mac")
-  let g:fontsize=12
+  let g:fontsize=16
   let g:fontpref="Monaco:h"
   "set guioptions+=e
 else
@@ -287,6 +332,14 @@ nnoremap ,v :tabnew $MYVIMRC<CR>
 nnoremap ,n :tabnew ~/.vim/tasks.md<CR>
 nnoremap ,pd a<C-R>=strftime("%b %d, %Y")<CR>
 
+nnoremap ,rc :%s/\<<C-r><C-w>\>/
+vnoremap ,rc y:%s/<C-r>"/
+nnoremap ,cc :%s/\<<C-r><C-w>\>/<C-r><C-w>
+vnoremap ,cc y:%s/<C-r>"/<C-r>"
+nnoremap <silent> ,a :ArgWrap<CR>
+nnoremap ,o yiwo<Esc>lpbi
+nnoremap yo yiwo
+
 nmap gp :call JumpToParams()<CR>i
 nmap gl :call JumpToFunction()<CR>
 nmap gk :call JumpToGlobal()<CR>
@@ -304,9 +357,6 @@ nmap ;o A;<Esc>o
 nmap ;O A;<Esc>O
 nmap ;; A;<Esc>
 nnoremap ,df diwds(
-nnoremap ,o4 :tabnew ./www/49.php<CR>
-nnoremap ,tcj :tabnew ./static/js/al/common.js<CR>
-nnoremap ,tco :tabnew ./www/config.php<CR>
 nnoremap ,\ ^i//<Esc>
 vnoremap ,d "xyodebugServerLog(<Esc>"xpli);<Esc>
 "nnoremap ,pr i'+(window.devicePixelRatio >= 2 ? '_2x' : '')+'<Esc>
