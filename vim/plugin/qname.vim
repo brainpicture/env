@@ -15,7 +15,8 @@ if !exists("g:qname_filter")
 	let g:qname_filter = ''
 endif
 if !exists("g:qname_command") || g:qname_command == ''
-	let g:qname_command = 'if [ -d "./.git" ]; then git ls-files '.g:qname_filter.'; else find . -type f -maxdepth 3 ! -path "*/.*" '.g:qname_filter.'; fi'
+	"let g:qname_command = 'if [ -d "./.git" ]; then git ls-files '.g:qname_filter.'; else find . -type f -maxdepth 3 ! -path "*/.*" '.g:qname_filter.'; fi'
+	let g:qname_command = 'find . -type f '.g:qname_filter
 endif
 exe "nmap" g:qname_base_hotkey ":cal QNameInit(1)<cr>:~"
 exe "imap" g:qname_base_hotkey "<Esc>:cal QNameInit(1)<cr>:~"
@@ -32,9 +33,9 @@ let s:qname_buff_hotkey = eval('"\'.g:qname_buff_hotkey.'"')
 let s:last_match = 0
 let s:need_build = 0
 
-if exists("g:QNAME_LS") && exists("g:QNAME_PWD")
-  unlet g:QNAME_LS
-  unlet g:QNAME_PWD
+if exists("s:QNAME_LS") && exists("g:QNAME_PWD")
+  unlet s:QNAME_LS
+  unlet s:QNAME_PWD
 endif
 
 if exists("g:qname_loaded") && g:qname_loaded
@@ -114,8 +115,8 @@ function! QNameRun()
       cal QNameInit(0)
       break
     elseif _key == "\<F5>"
-      unlet g:QNAME_LS
-      unlet g:QNAME_PWD
+      unlet s:QNAME_LS
+      unlet s:QNAME_PWD
       if s:type == 1
         call s:baselist()
         call s:build()
@@ -243,15 +244,15 @@ function! s:swb(bno)
 endfunc
 
 function! s:baselist()
-  if exists("g:QNAME_LS") && exists("g:QNAME_PWD") && g:QNAME_PWD == getcwd()
-    let s:ls = copy(g:QNAME_LS)
+  if exists("s:QNAME_LS") && exists("s:QNAME_PWD") && s:QNAME_PWD == getcwd()
+    let s:ls = copy(s:QNAME_LS)
   else
     let s:ls = []
 
     call s:extlist()
 
-    let g:QNAME_LS = copy(s:ls)
-    let g:QNAME_PWD = getcwd()
+    let s:QNAME_LS = copy(s:ls)
+    let s:QNAME_PWD = getcwd()
   endif
   "cal add(s:ls, 'test')
 	"cal sort(s:ls, 1)

@@ -188,7 +188,7 @@ map <S-Insert>    "+gP
 cmap <C-V>    <C-R>+
 cmap <S-Insert>   <C-R>+
 
-"set pastetoggle=<F5>
+set pastetoggle=<F5>
 " Auto :paste node when C-V used
 "function! XTermPasteBegin()
 "  set pastetoggle=<Esc>[201~
