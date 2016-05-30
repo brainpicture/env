@@ -15,8 +15,8 @@ if !exists("g:qname_filter")
 	let g:qname_filter = ''
 endif
 if !exists("g:qname_command") || g:qname_command == ''
-	"let g:qname_command = 'if [ -d "./.git" ]; then git ls-files '.g:qname_filter.'; else find . -type f -maxdepth 3 ! -path "*/.*" '.g:qname_filter.'; fi'
-	let g:qname_command = 'find . -type f '.g:qname_filter
+	 let g:qname_command = 'if [ -d "./.git" ]; then git ls-files '.g:qname_filter.'; else find . -type f -maxdepth 5 ! -path "*/.*" '.g:qname_filter.'; fi'
+	"let g:qname_command = 'find . -type f '.g:qname_filter
 endif
 exe "nmap" g:qname_base_hotkey ":cal QNameInit(1)<cr>:~"
 exe "imap" g:qname_base_hotkey "<Esc>:cal QNameInit(1)<cr>:~"

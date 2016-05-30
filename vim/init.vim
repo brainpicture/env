@@ -182,9 +182,6 @@ noremap  <f8> :BufExplorer<return>
 inoremap <f8> <c-o>:BufExplorer<return>
 vnoremap <f8> <c-o>:BufExplorer<return>
 
-map <f3> <f2>
-imap <f3> <f2>
-
 nnoremap <Home> ^
 inoremap <Home> <Esc>^i
 vnoremap <Home> <Esc>^v
@@ -295,7 +292,7 @@ set viminfo='100,<50,:100,/50,s10,h,f50,!
 set guioptions=gi
 
 if has("mac")
-  let g:fontsize=16
+  let g:fontsize=15
   let g:fontpref="Monaco:h"
   "set guioptions+=e
 else
@@ -314,8 +311,6 @@ inoremap <silent> <PageUp> <C-\><C-O><C-U>
 nnoremap <silent> <PageDown> <C-D>
 vnoremap <silent> <PageDown> <C-D>
 inoremap <silent> <PageDown> <C-\><C-O><C-D>
-
-let g:qname_filter = '| grep ".\(php\|js\|css\|html\)$"'
 
 let g:AutoPairs = {'(':')', '[':']', "'":"'",'"':'"', '`':'`'}
 
@@ -475,7 +470,14 @@ ab amrgin margin
 ab esle else
 
 nnoremap ,<F4> :cd ~/<CR>:cd ./Mount/Data<CR><F4>
-nnoremap б<F4> :cd ~/<CR>:cd ./Mount/Data<CR><F4>
+let g:qname_base_hotkey = "<C-F4>"
+let g:qname_filter = '| grep ".\(php\|js\|css\|html\)$"'
+let g:ctrlp_map = '<F4>'
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("t")': ['<tab>'],
+    \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>', '<F4>'],
+    \ }
+
 let g:session = 0
 
 function! SwitchToSession(session)
@@ -539,4 +541,3 @@ function! Spaces()
     exe ":buffer ".num[0]
   endif
 endfunction
-

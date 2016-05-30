@@ -23,6 +23,7 @@ alias feature='git checkout feature'
 alias merge='git merge'
 alias stash='git stash'
 alias track='git commit --amend'
+alias sshwatch='node ~/env/watch.js'
 
 export GIT_MERGE_AUTOEDIT='no'
 
