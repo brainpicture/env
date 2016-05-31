@@ -343,10 +343,12 @@ nnoremap ,m :call ToggleMouse()<CR>
 nnoremap ,g :GundoToggle<CR>
 nnoremap ,q :q<CR>
 nnoremap ,t :tabnew<CR>
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <D-j> <C-e>j
+nnoremap <D-k> <C-y>k
 
 nmap ;o A;<Esc>o
 nmap ;O A;<Esc>O
