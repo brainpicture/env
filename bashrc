@@ -27,6 +27,8 @@ alias sshwatch='node ~/env/watch.js'
 
 export GIT_MERGE_AUTOEDIT='no'
 
+set -o vi
+
 function passgen {
   MAXSIZE=$(($*))
   if [ $MAXSIZE == 0  ]

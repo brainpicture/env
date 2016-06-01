@@ -10,4 +10,8 @@ all:
 	@ln -sF $(PWD)/vim ~/.vim
 	@mkdir -p ~/.config
 	@ln -sF $(PWD)/vim ~/.config/nvim
+	@-test -e  ~/.tmux.conf && mv ~/.tmux.conf ./backup/.tmux.conf
+	@ln -sF $(PWD)/tmux.conf ~/.tmux.conf
+	@-test -e  ~/.inputrc && mv ~/.inputrc ./backup/.inputrc
+	@ln -sF $(PWD)/inputrc ~/.inputrc
 	@echo 'SUCCESS'

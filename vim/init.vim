@@ -32,13 +32,11 @@ if has('nvim')
     exe ":buffer ".g:prevBuf
   endfunction
 elseif exists('$TMUX')
-    autocmd VimEnter,VimLeave * silent !tmux set status && tmux set -s escape-time 0
-
     nnoremap <F1> :call TerminalBuf()<CR>
 
-    silent !tmux bind-key -n F1 previous-window
-    silent !tmux set -g history-limit 20000
-    silent !tmux setw -g xterm-keys on
+    "silent !tmux bind-key -n F1 previous-window
+    "silent !tmux set -g history-limit 20000
+    "silent !tmux set -g xterm-keys on
 
     function! TerminalBuf()
       silent !tmux next-window
