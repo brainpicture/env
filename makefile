@@ -1,4 +1,5 @@
 all:
+	@git submodule update --init --recursive
 	@mkdir -p ./backup
 	@-test -e  ~/.vimrc && mv ~/.vimrc ./backup/.vimrc
 	@ln -sF $(PWD)/vim/init.vim ~/.vimrc
