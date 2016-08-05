@@ -22,6 +22,7 @@ alias master='git checkout master'
 alias feature='git checkout feature'
 alias merge='git merge'
 alias stash='git stash'
+alias diff='git diff'
 alias track='git commit --amend'
 alias sshwatch='node ~/env/watch.js'
 
@@ -82,6 +83,12 @@ function slow {
 
 function fast {
   sudo wondershaper clear eth0
+}
+
+function commit {
+  git status
+  git add .
+  git commit -am "$*"
 }
 
 if [ -f ~/.bash_local  ]; then
