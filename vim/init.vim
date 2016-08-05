@@ -143,7 +143,8 @@ colorscheme lucius
 "------------
 
 set termencoding=utf8
-set fileencodings=cp1251,utf-8,koi8-r,latin1
+"set fileencodings=cp1251,utf-8,koi8-r,latin1
+set fileencodings=utf-8,cp1251,koi8-r,latin1
 
 set iskeyword+=$
 
@@ -477,6 +478,8 @@ let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("t")': ['<tab>'],
     \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>', '<F4>'],
     \ }
+
+let g:go_fmt_autosave = 0
 
 let g:session = 0
 
