@@ -87,3 +87,6 @@ function fast {
 if [ -f ~/.bash_local  ]; then
   . ~/.bash_local
 fi
+
+
+. /home/ubuntu/torch/install/bin/torch-activate
