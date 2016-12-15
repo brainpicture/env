@@ -2,15 +2,7 @@
 export PS1='\h:\w\$ '
 umask 022
 
-if [ "$TERM" = dtterm -o "$LANG" = ru_RU.KOI8-R -o "$LC_ALL" = ru_RU.KOI8-R -o -n "$KOI"  ] ; then
-  export TERM=vt100
-  export KOI=yes
-  export LANG=ru_RU.KOI8-R
-  export LC_ALL=ru_RU.KOI8-R
-else
-  export LANG=ru_RU.UTF-8
-  export LC_ALL=ru_RU.UTF-8
-fi
+export LC_ALL=C
 
 export TERM=xterm-256color
 
@@ -69,6 +61,10 @@ function t {
   tmux attach || tmux new
 }
 
+function t2 {
+  tmux a -t t2
+}
+
 function strlen {
   echo ${#1}
 }
@@ -94,3 +90,5 @@ function commit {
 if [ -f ~/.bash_local  ]; then
   . ~/.bash_local
 fi
+
+export GOPATH=~/go
