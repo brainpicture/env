@@ -91,6 +91,15 @@ function keygen {
   ssh-keygen -t rsa -b 4096 -C "dev@emby.ru"
 }
 
+function m {
+  mkdir -p ~/Mount/$1
+  sshfs $1: ~/Mount/$1
+}
+
+function um {
+  fusermount -u ~/Mount/$1
+}
+
 if [ -f ~/.bash_local  ]; then
   . ~/.bash_local
 fi
