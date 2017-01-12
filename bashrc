@@ -87,6 +87,10 @@ function commit {
   git commit -am "$*"
 }
 
+function keygen {
+  ssh-keygen -t rsa -b 4096 -C "dev@emby.ru"
+}
+
 if [ -f ~/.bash_local  ]; then
   . ~/.bash_local
 fi
