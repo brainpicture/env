@@ -93,11 +93,15 @@ function keygen {
 
 function m {
   mkdir -p ~/Mount/$1
-  sshfs $1: ~/Mount/$1
+  sshfs -o reconnect,nonempty $1: ~/Mount/$1
 }
 
 function um {
-  fusermount -u ~/Mount/$1
+  sudo umount ~/Mount/$1
+  #fusermount -u ~/Mount/$1
+}
+function fum {
+  sudo fuser -km ~/Mount/$1
 }
 
 if [ -f ~/.bash_local  ]; then
