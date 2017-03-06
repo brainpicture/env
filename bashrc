@@ -97,7 +97,7 @@ function m {
 }
 
 function um {
-  sudo umount ~/Mount/$1
+  sudo umount -f ~/Mount/$1
   #fusermount -u ~/Mount/$1
 }
 function fum {
