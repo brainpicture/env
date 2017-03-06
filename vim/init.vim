@@ -154,11 +154,11 @@ autocmd BufWinLeave * :let g:LastBuff=expand('<abuf>') " // restore last closed 
 autocmd BufWritePost *.snippets :call ReloadAllSnippets()
 
 set number
-set relativenumber
-autocmd FocusLost * :set norelativenumber number
-autocmd FocusGained * :set relativenumber
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
+"set relativenumber
+"autocmd FocusLost * :set norelativenumber number
+"autocmd FocusGained * :set relativenumber
+"autocmd InsertEnter * :set norelativenumber number
+"autocmd InsertLeave * :set relativenumber
 
 nnoremap ,T :execute 'tabnew +'.g:LastBuff.'buf'<CR>
 

@@ -55,7 +55,6 @@ function en {
 }
 
 function t {
-  tmux set -g status off
   tmux set -sg escape-time 0
   tmux set -g aggressive-resize on
   tmux attach || tmux new
