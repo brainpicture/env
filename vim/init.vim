@@ -31,17 +31,6 @@ if has('nvim')
   function! TerminalPrev()
     exe ":buffer ".g:prevBuf
   endfunction
-elseif exists('$TMUX')
-    nnoremap <F1> :call TerminalBuf()<CR>
-
-    "silent !tmux bind-key -n F1 previous-window
-    "silent !tmux set -g history-limit 20000
-    "silent !tmux set -g xterm-keys on
-
-    function! TerminalBuf()
-      silent !tmux next-window
-    endfunc
-
 endif
 
 execute pathogen#infect()

@@ -26,7 +26,7 @@ let g:colors_name="lucius"
 " Base color
 " ----------
 hi Normal           guifg=#ffffff           guibg=#1b1b1b
-hi Normal           ctermfg=230             ctermbg=234
+hi Normal           ctermfg=230             ctermbg=16
 
 
 " Comment Group
@@ -230,7 +230,7 @@ hi SignColumn       guifg=#9fafaf           guibg=#181818           gui=none
 hi SignColumn       ctermfg=145             ctermbg=233             cterm=none
 " line numbers
 hi LineNr           guifg=#606060           guibg=#1b1b1b
-hi LineNr           ctermfg=238             ctermbg=234
+hi LineNr           ctermfg=238             ctermbg=16
 " match parenthesis, brackets
 hi MatchParen       guifg=#00ff00           guibg=#444444              gui=none
 hi MatchParen       ctermfg=46              ctermbg=NONE            cterm=none
@@ -325,13 +325,13 @@ hi StatusLineNC     ctermfg=244             ctermbg=238             cterm=none
 " ---------
 " tab pages line, not active tab page label
 hi TabLine          guifg=#aaaaaa           guibg=#1b1b1b           gui=none
-hi TabLine          ctermfg=244             ctermbg=233             cterm=none
+hi TabLine          ctermfg=244             ctermbg=16             cterm=none
 " tab pages line, where there are no labels
 hi TabLineFill      guifg=#aaaaaa           guibg=#1b1b1b           gui=none
-hi TabLineFill      ctermfg=187             ctermbg=233             cterm=none
+hi TabLineFill      ctermfg=187             ctermbg=16             cterm=none
 " tab pages line, active tab page label
-hi TabLineSel       guifg=#000000           guibg=#8cd0d3           gui=none
-hi TabLineSel       ctermfg=254             ctermbg=233             cterm=none
+hi TabLineSel       guifg=#ffffff           guibg=#8cd0d3           gui=none
+hi TabLineSel       ctermfg=255             ctermbg=238             cterm=none
 
 " Visual
 " ------
