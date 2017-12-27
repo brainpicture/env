@@ -133,7 +133,7 @@ colorscheme lucius
 
 set termencoding=utf8
 "set fileencodings=cp1251,utf-8,koi8-r,latin1
-set fileencodings=utf-8,cp1251,koi8-r,latin1
+set fileencodings=utf-8,koi8-r,latin1
 
 set iskeyword+=$
 

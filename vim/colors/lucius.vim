@@ -25,8 +25,8 @@ let g:colors_name="lucius"
 
 " Base color
 " ----------
-hi Normal           guifg=#ffffff           guibg=#1b1b1b
-hi Normal           ctermfg=230             ctermbg=16
+hi Normal           guifg=#ffffff           guibg=NONE
+hi Normal           ctermfg=230             ctermbg=NONE
 
 
 " Comment Group
@@ -229,8 +229,8 @@ hi VertSplit        ctermfg=244             ctermbg=238             cterm=none
 hi SignColumn       guifg=#9fafaf           guibg=#181818           gui=none
 hi SignColumn       ctermfg=145             ctermbg=233             cterm=none
 " line numbers
-hi LineNr           guifg=#606060           guibg=#1b1b1b
-hi LineNr           ctermfg=238             ctermbg=16
+hi LineNr           guifg=#606060           guibg=NONE
+hi LineNr           ctermfg=238             ctermbg=NONE
 " match parenthesis, brackets
 hi MatchParen       guifg=#00ff00           guibg=#444444              gui=none
 hi MatchParen       ctermfg=46              ctermbg=NONE            cterm=none

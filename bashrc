@@ -108,3 +108,5 @@ if [ -f ~/.bash_local  ]; then
 fi
 
 export GOPATH=~/go
+export GOROOT=/usr/local/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
