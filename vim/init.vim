@@ -57,6 +57,7 @@ set laststatus=0
 set nocompatible
 set autoindent
 set smartindent
+set novisualbell
 
 "set hidden
 
@@ -337,6 +338,10 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <D-j> <C-e>j
 nnoremap <D-k> <C-y>k
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+
 
 nmap ;o A;<Esc>o
 nmap ;O A;<Esc>O
