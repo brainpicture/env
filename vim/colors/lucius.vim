@@ -164,8 +164,8 @@ hi Underlined       ctermfg=fg                                      cterm=underl
 " Ignore Group
 " ------------
 " left blank, hidden
-hi Ignore           guifg=bg
-hi Ignore           ctermfg=bg
+hi Ignore           guifg=NONE
+hi Ignore           ctermfg=NONE
 
 
 " Error Group
@@ -201,11 +201,11 @@ hi SpellLocal                               ctermbg=14              cterm=underc
 " Cursor
 " ------
 " character under the cursor
-hi Cursor           guifg=bg                guibg=#FFFFFF
-hi Cursor           ctermfg=bg              ctermbg=117
+hi Cursor           guifg=NONE                guibg=#FFFFFF
+hi Cursor           ctermfg=NONE              ctermbg=117
 " like cursor, but used when in IME mode
-hi CursorIM         guifg=bg                guibg=#96cdcd
-hi CursorIM         ctermfg=bg              ctermbg=116
+hi CursorIM         guifg=NONE                guibg=#96cdcd
+hi CursorIM         ctermfg=NONE              ctermbg=116
 " cursor column
 hi CursorColumn                             guibg=#3d3d4d
 hi CursorColumn     cterm=NONE              ctermbg=236
