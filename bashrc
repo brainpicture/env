@@ -34,7 +34,9 @@ function passgen {
   MODNUM=${#array1[*]}
 
   pwd_len=0
-
+  
+  password=""
+  
   while [ $pwd_len -lt $MAXSIZE  ]
   do
     index=$(($RANDOM%$MODNUM))
